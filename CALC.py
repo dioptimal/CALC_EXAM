@@ -4,14 +4,14 @@ import math
 s = Tk()
 s.title("CALCULATOR")
 
-def frame_maker(root,side):
+def frame_maker(root, side):
     temp = Frame(root)
     temp.pack(side=side, expand=YES, fill=BOTH)
     return temp
 
-def button_maker(root, text, side, command):
-    temp = Button(root, text=text, command=command, bg="gray40", fg="black", font=("arial", 15, "bold"))
-    temp.pack(side=side, expand=YES, fill=BOTH)
+def button_maker(root, text, command):
+    temp = Button(root, text=text, command=command, width=6, height=1, bg="gray60", fg="black", font=("arial", 17, "bold"))
+    #temp.pack(expand=YES, fill=BOTH)
     return temp
 
 def calc(w):
@@ -46,11 +46,11 @@ def radio_change(v):
 object_list = ["123", "456", "789"]
 if __name__ == "__main__":
     flag = 0
-    s = Frame(bg="gray40")
+    s = Frame(bg="gray30")
     s.pack(expand=YES, fill=BOTH)
     display = StringVar()
     radio = IntVar()
-    disp = Entry(s, textvariable=display)
+    disp = Entry(s, textvariable=display, font=("arial", 13))
     disp.pack(side=TOP, expand=YES, fill=BOTH)
     frame_0 = frame_maker(s, TOP)
     frame_1 = frame_maker(s, TOP)
@@ -67,30 +67,36 @@ if __name__ == "__main__":
     radio_2.pack(anchor=W)
     label_rad = Label(frame_0, text="RAD", fg="red", font=("arial", 10, "bold"))
     label_rad.pack(anchor=W)
-    button_1 = button_maker(frame_1, "1", LEFT, lambda w=display: w.set(w.get()+"1"))
-    button_2 = button_maker(frame_1, "2", LEFT, lambda w=display: w.set(w.get()+"2"))
-    button_3 = button_maker(frame_1, "3", LEFT, lambda w=display: w.set(w.get()+"3"))
-    button_pi = button_maker(frame_1, "pi", LEFT, lambda w=display: w.set(w.get()+str(math.pi)))
-    button_4 = button_maker(frame_2, "4", LEFT, lambda w=display: w.set(w.get()+"4"))
-    button_5 = button_maker(frame_2, "5", LEFT, lambda w=display: w.set(w.get()+"5"))
-    button_6 = button_maker(frame_2, "6", LEFT, lambda w=display: w.set(w.get()+"6"))
-    button_e = button_maker(frame_2, "e", LEFT, lambda w=display: w.set(w.get()+str(math.e)))
-    button_7 = button_maker(frame_3, "7", LEFT, lambda w=display: w.set(w.get()+"7"))
-    button_8 = button_maker(frame_3, "8", LEFT, lambda w=display: w.set(w.get()+"8"))
-    button_9 = button_maker(frame_3, "9", LEFT, lambda w=display: w.set(w.get()+"9"))
-    button_dot = button_maker(frame_3, ".", LEFT, lambda w=display: w.set(w.get()+"."))
-    button_10 = button_maker(frame_4, "+", LEFT, lambda w=display: w.set(w.get()+"+"))
-    button_11 = button_maker(frame_4, "-", LEFT, lambda w=display: w.set(w.get()+"-"))
-    button_12 = button_maker(frame_4, "/", LEFT, lambda w=display: w.set(w.get()+"/"))
-    button_pow = button_maker(frame_4, "^", LEFT, lambda w=display: w.set(w.get()+"**"))
-    button_13 = button_maker(frame_5, "*", LEFT, lambda w=display: w.set(w.get()+"*"))
-    button_14 = button_maker(frame_5, "0", LEFT, lambda w=display: w.set(w.get()+"0"))
-    button_15 = button_maker(frame_5, "=", LEFT, lambda w=display: calc(w))
-    button_sin = button_maker(frame_7, "Sin", LEFT, lambda w=display: tri_func(w, "sin"))
-    button_cos = button_maker(frame_7, "Cos", LEFT, lambda w=display: tri_func(w, "cos"))
-    button_tan = button_maker(frame_7, "Tan", LEFT, lambda w=display: tri_func(w, "tan"))
-    button_fact = button_maker(frame_7, "fact", LEFT, lambda w=display: tri_func(w, "fact"))
-    button_16 = button_maker(frame_6, "Clear", LEFT, lambda w=display: w.set(""))
+    button_1 = button_maker(frame_1, "1", lambda w=display: w.set(w.get()+"1")).grid(row=1, column=1)
+    button_2 = button_maker(frame_1, "2", lambda w=display: w.set(w.get()+"2")).grid(row=1, column=2)
+    button_3 = button_maker(frame_1, "3", lambda w=display: w.set(w.get()+"3")).grid(row=1, column=3)
+    button_pi = button_maker(frame_1, "π", lambda w=display: w.set(w.get()+str(math.pi))).grid(row=1, column=4)
+
+    button_4 = button_maker(frame_2, "4", lambda w=display: w.set(w.get()+"4")).grid(row=2, column=1)
+    button_5 = button_maker(frame_2, "5", lambda w=display: w.set(w.get()+"5")).grid(row=2, column=2)
+    button_6 = button_maker(frame_2, "6", lambda w=display: w.set(w.get()+"6")).grid(row=2, column=3)
+    button_e = button_maker(frame_2, "e", lambda w=display: w.set(w.get()+str(math.e))).grid(row=2, column=4)
+
+    button_7 = button_maker(frame_3, "7", lambda w=display: w.set(w.get()+"7")).grid(row=3, column=1)
+    button_8 = button_maker(frame_3, "8", lambda w=display: w.set(w.get()+"8")).grid(row=3, column=2)
+    button_9 = button_maker(frame_3, "9", lambda w=display: w.set(w.get()+"9")).grid(row=3, column=3)
+    button_15 = button_maker(frame_3, "=", lambda w=display: calc(w)).grid(row=3, column=4, rowspan=2)
+
+    button_10 = button_maker(frame_5, "+", lambda w=display: w.set(w.get()+"+")).grid(row=5, column=1)
+    button_11 = button_maker(frame_5, "-", lambda w=display: w.set(w.get()+"-")).grid(row=5, column=2)
+    button_12 = button_maker(frame_5, "/", lambda w=display: w.set(w.get()+"/")).grid(row=5, column=3)
+    button_pow = button_maker(frame_5, "*", lambda w=display: w.set(w.get()+"*")).grid(row=5, column=4)
+
+    button_13 = button_maker(frame_4, "^", lambda w=display: w.set(w.get()+"**")).grid(row=4, column=1)
+    button_14 = button_maker(frame_4, "0", lambda w=display: w.set(w.get()+"0")).grid(row=4, column=2)
+    button_dot = button_maker(frame_4, ".", lambda w=display: w.set(w.get() + ".")).grid(row=4, column=3)
+    button_16 = button_maker(frame_4, "CLEAR", lambda w=display: w.set("")).grid(row=4, column=4)
+
+    button_sin = button_maker(frame_7, "sin", lambda w=display: tri_func(w, "sin")).grid(row=6, column=1)
+    button_cos = button_maker(frame_7, "cos", lambda w=display: tri_func(w, "cos")).grid(row=6, column=2)
+    button_tan = button_maker(frame_7, "tan", lambda w=display: tri_func(w, "tan")).grid(row=6, column=3)
+    button_fact = button_maker(frame_7, "fact", lambda w=display: tri_func(w, "fact")).grid(row=6, column=4)
+
     label_1 = Label(s, text="ITMO University, group P3177 Salov D. (2016)")
     label_1.pack(side=TOP, expand=YES, fill=BOTH)
     s.mainloop()
